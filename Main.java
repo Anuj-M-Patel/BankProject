@@ -29,8 +29,8 @@ public class Main {
 				System.out.print("Would you like to withdraw (w), deposit (d), transfer (t), or get account numbers (n)? ");
 				input.nextLine();
 				String response2 = input.next();
-				String amount;
-				String accountNumber;
+				int amount;
+				int accountNumber;
 				String type = null;
 				boolean transactionMade = false;
 				switch(response2) {
@@ -38,14 +38,14 @@ public class Main {
 					while (transactionMade == false) {
 						System.out.print("Account Number: ");
 						input.nextLine();
-						accountNumber = input.next();
+						accountNumber = Integer.parseInt(input.next());
 						System.out.print("Amount: ");
 						input.nextLine();
-						amount = input.next();
+						amount = Integer.parseInt(input.next());
 						for (BankAccount bankAccount : bankAccounts) {
-							if (bankAccount.getAccountNumber() == Integer.parseInt(accountNumber)) {
+							if (bankAccount.getAccountNumber() == accountNumber) {
 								try {
-									bankAccount.withdraw(Integer.parseInt(amount));
+									bankAccount.withdraw(amount);
 								}
 								catch(IllegalArgumentException e) {
 									System.out.print("\nTransaction not authorized.");
@@ -85,13 +85,13 @@ public class Main {
 					while(transactionMade == false) {
 						System.out.print("Account Number: ");
 						input.nextLine();
-						accountNumber = input.next();
+						accountNumber = Integer.parseInt(input.next());
 						System.out.print("Amount: ");
 						input.nextLine();
-						amount = input.next();
+						amount = Integer.parseInt(input.next());
 						for (BankAccount bankAccount : bankAccounts) {
-							if (bankAccount.getAccountNumber() == Integer.parseInt(accountNumber)) {
-								bankAccount.deposit(Integer.parseInt(amount));
+							if (bankAccount.getAccountNumber() == accountNumber) {
+								bankAccount.deposit(amount);
 								transactionMade = true;
 							}
 						}
@@ -129,15 +129,15 @@ public class Main {
 						boolean accountNotFound = false;
 						System.out.print("Account Number (Transferring From): ");
 						input.nextLine();
-						accountNumber = input.next();
+						accountNumber = Integer.parseInt(input.next());
 						System.out.print("Account Number (Transferring To): ");
 						input.nextLine();
 						transferAccountNumber = Integer.parseInt(input.next());
 						System.out.print("Amount: ");
 						input.nextLine();
-						amount = input.next();
+						amount = Integer.parseInt(input.next());
 						for (BankAccount bankAccount : bankAccounts) {
-							if (bankAccount.getAccountNumber() == Integer.parseInt(accountNumber)) {
+							if (bankAccount.getAccountNumber() == accountNumber) {
 								for (int i = 0; i < bankAccounts.size(); i++) {
 									if (bankAccounts.get(i).getAccountNumber() == transferAccountNumber) {
 										transferAccount = bankAccounts.get(i);
@@ -148,7 +148,7 @@ public class Main {
 								}
 								else if (accountNotFound == false) {
 									try {
-										bankAccount.transfer(transferAccount, Integer.parseInt(amount));
+										bankAccount.transfer(transferAccount, amount);
 									
 									}
 									catch(IllegalArgumentException e) {
